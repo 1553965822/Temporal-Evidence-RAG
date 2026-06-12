@@ -1,0 +1,49 @@
+project:
+  name: paper_aligned_contract_rag
+  paper_title: 基于法律时效对齐与证据利用的合同审查RAG框架
+  seed: 42
+  retrieval_top_k: 3
+
+datasets:
+  GLTRD:
+    full_name: Grassland Legal Timeliness Review Dataset
+    total: 500
+    positive_label: 失效引用
+    positive_count: 200
+    negative_label: 有效引用
+    negative_count: 300
+    split: [0.6, 0.1, 0.3]
+  GrassRisk:
+    full_name: Grassland Contract Risk Review Dataset
+    total: 620
+    positive_label: 风险条款
+    positive_count: 312
+    negative_label: 非风险条款
+    negative_count: 308
+    split: [0.6, 0.2, 0.2]
+  CUADRisk:
+    full_name: CUAD Reconstructed General Contract Risk Review Dataset
+    total: 1012
+    positive_label: 风险条款
+    positive_count: 497
+    negative_label: 非风险条款
+    negative_count: 515
+    split: [0.6, 0.2, 0.2]
+
+models:
+  zero_shot:
+    - RoBERTa
+    - Qwen3
+    - InternLM-Law
+    - MiniCPM
+  supervised:
+    - MiniCPM-SFT
+  rag_methods:
+    - Standard-RAG + Direct Generation
+    - Temporal-RAG + Direct Generation
+    - Standard-RAG + Evidence-RAG
+    - Temporal-RAG + Full-Distill
+    - Temporal-RAG + Evidence-RAG
+  temporal_alignment:
+    - Standard-RAG
+    - Temporal-RAG

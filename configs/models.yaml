@@ -1,0 +1,126 @@
+policy:
+  default_execution: real_local_or_explicit_free_api
+  no_paid_api_by_default: true
+  api_key_storage: ".env only"
+  print_api_key_in_logs: false
+  unavailable_model_behavior: omit_from_result_tables
+  notes:
+    - 不调用任何可能产生费用的 API。
+    - 不自动开通付费服务或创建付费资源。
+    - 无法确认完全免费的远程接口不作为默认配置。
+    - 实验默认使用本地模型、本地检索、本地训练或显式确认免费的接口。
+    - 模型路径不存在、权重无法加载或显存不足时，该模型不写入实验结果表。
+
+embedding:
+  default_backend: local_tfidf
+  optional_sentence_transformer:
+    model_id: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+    backend: local_download_optional
+
+local_models:
+  Qwen3-8B:
+    target_model: Qwen/Qwen3-8B
+    source_priority: [modelscope, huggingface]
+    local_path_env: QWEN3_8B_MODEL_PATH
+    backend: local_transformers_or_vllm_or_explicit_free_modelscope_api
+    default_enabled: false
+    api_allowed_by_default: false
+    if_unavailable: omit_from_results
+  InternLM-Law-7B:
+    target_model: internlm/internlm2-law-7b
+    display_name: InternLM2-Law-7B
+    source_priority: [huggingface, github]
+    local_path_env: INTERNLM_LAW_7B_MODEL_PATH
+    backend: local_transformers_or_lmdeploy
+    default_enabled: false
+    api_allowed_by_default: false
+    if_unavailable: omit_from_results
+  Expert-only:
+    target_model: local 13B legal expert model
+    local_path_env: EXPERT_13B_MODEL_PATH
+    backend: local_transformers_or_vllm
+    default_enabled: false
+    api_allowed_by_default: false
+    if_unavailable: omit_from_results
+  MiniCPM-2.4B:
+    target_model: openbmb/MiniCPM-2B-sft-bf16
+    source_priority: [huggingface, modelscope]
+    local_path_env: MINICPM_2_4B_MODEL_PATH
+    backend: local_transformers_or_vllm
+    default_enabled: false
+    api_allowed_by_default: false
+    if_unavailable: omit_from_results
+  MiniCPM-SFT:
+    base_model: MiniCPM-2.4B
+    adapter_path_env: MINICPM_SFT_ADAPTER_PATH
+    default_adapter_path: models/minicpm_sft_lora
+    merged_model_path_env: MINICPM_SFT_MERGED_PATH
+    default_merged_model_path: models/minicpm_sft_merged
+    backend: local_lora_sft
+    default_enabled: false
+    if_unavailable: omit_from_results
+    notes: MiniCPM-SFT 必须由 MiniCPM-2.4B 本地 LoRA/SFT 训练后保存。
+
+baselines:
+  RoBERTa:
+    target_model: roberta-base
+    backend: local_encoder
+    role: zero-shot text encoder baseline
+    if_unavailable: omit_from_results
+  Qwen3:
+    target_model: Qwen/Qwen3-8B
+    backend: local_or_explicit_free_api
+    role: zero-shot large language model baseline
+    if_unavailable: omit_from_results
+  InternLM-Law:
+    target_model: internlm/internlm2-law-7b
+    backend: local_only_if_available
+    role: legal-domain large language model baseline
+    if_unavailable: omit_from_results
+  MiniCPM:
+    target_model: openbmb/MiniCPM-2B-sft-bf16
+    backend: local_generation
+    role: lightweight base model
+    if_unavailable: omit_from_results
+  MiniCPM-SFT:
+    target_model: local MiniCPM LoRA/SFT adapter
+    backend: local_lora_sft
+    role: supervised lightweight model
+    if_unavailable: omit_from_results
+  Standard-RAG + Direct Generation:
+    retriever: standard_rag
+    generator: direct_generation
+    base_model: MiniCPM-2.4B
+    backend: local_retrieval_and_generation
+  Temporal-RAG + Direct Generation:
+    retriever: temporal_rag
+    generator: direct_generation
+    base_model: MiniCPM-2.4B
+    backend: local_temporal_retrieval_and_generation
+  Standard-RAG + Evidence-RAG:
+    retriever: standard_rag
+    generator: evidence_rag
+    base_model: MiniCPM-2.4B
+    backend: local_evidence_rag
+  Temporal-RAG + Full-Distill:
+    retriever: temporal_rag
+    generator: full_distill
+    base_model: MiniCPM-2.4B
+    backend: local_temporal_full_distill
+  Temporal-RAG + Evidence-RAG:
+    retriever: temporal_rag
+    generator: evidence_rag
+    base_model: MiniCPM-2.4B
+    backend: local_temporal_evidence_rag
+
+api_backends:
+  modelscope_openai_compatible:
+    enabled: false
+    base_url_env: OPENAI_COMPATIBLE_BASE_URL
+    api_key_env: MODELSCOPE_API_KEY
+    safety: disabled_by_default_because_free_status_must_be_confirmed_first
+  siliconflow:
+    enabled: false
+    base_url: https://api.siliconflow.cn/v1
+    api_key_env: SILICONFLOW_API_KEY
+    safety: disabled_by_default_because_pricing_may_apply

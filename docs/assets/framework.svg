@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="620" viewBox="0 0 1180 620" role="img" aria-labelledby="title desc">
+  <title id="title">Temporal-RAG and Evidence-RAG framework for contract review</title>
+  <desc id="desc">The framework extracts a contract time anchor, filters legal evidence by temporal validity, then generates a structured risk review with evidence-aware lightweight model training.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 z" fill="#334155"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .panel { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 14; }
+      .stage1 { fill: #e0f2fe; stroke: #0284c7; }
+      .stage2 { fill: #ecfccb; stroke: #65a30d; }
+      .input { fill: #fef3c7; stroke: #d97706; }
+      .output { fill: #fee2e2; stroke: #dc2626; }
+      .text { font-family: Arial, Helvetica, sans-serif; fill: #0f172a; font-size: 22px; }
+      .small { font-size: 17px; fill: #334155; }
+      .tiny { font-size: 15px; fill: #475569; }
+      .title { font-size: 28px; font-weight: 700; }
+      .label { font-size: 20px; font-weight: 700; }
+      .arrow { stroke: #334155; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .dash { stroke-dasharray: 8 8; }
+    </style>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1180" height="620"/>
+  <text class="text title" x="590" y="48" text-anchor="middle">Contract Review RAG with Legal Temporal Validity Alignment and Evidence Utilization</text>
+
+  <rect class="panel input" x="40" y="115" width="210" height="120" rx="14"/>
+  <text class="text label" x="145" y="155" text-anchor="middle">Contract Clause</text>
+  <text class="text small" x="145" y="188" text-anchor="middle">clause text</text>
+  <text class="text small" x="145" y="214" text-anchor="middle">date expressions</text>
+
+  <rect class="panel input" x="40" y="385" width="210" height="120" rx="14"/>
+  <text class="text label" x="145" y="425" text-anchor="middle">Legal KB</text>
+  <text class="text small" x="145" y="458" text-anchor="middle">law text</text>
+  <text class="text small" x="145" y="484" text-anchor="middle">valid from / valid to</text>
+
+  <rect class="panel stage1" x="305" y="105" width="455" height="420" rx="18"/>
+  <text class="text label" x="532" y="142" text-anchor="middle">Stage 1: Temporal-RAG Retrieval</text>
+
+  <rect class="panel" x="340" y="175" width="170" height="95" rx="12"/>
+  <text class="text small" x="425" y="210" text-anchor="middle">Contract Time</text>
+  <text class="text small" x="425" y="236" text-anchor="middle">Anchor Extraction</text>
+
+  <rect class="panel" x="555" y="175" width="170" height="95" rx="12"/>
+  <text class="text small" x="640" y="210" text-anchor="middle">Legal Validity</text>
+  <text class="text small" x="640" y="236" text-anchor="middle">Period Modeling</text>
+
+  <rect class="panel" x="392" y="325" width="280" height="105" rx="12"/>
+  <text class="text small" x="532" y="360" text-anchor="middle">Temporal-Constrained</text>
+  <text class="text small" x="532" y="386" text-anchor="middle">Top-k Evidence Retrieval</text>
+  <text class="text tiny" x="532" y="414" text-anchor="middle">semantic relevance + temporal validity</text>
+
+  <rect class="panel stage2" x="805" y="105" width="330" height="270" rx="18"/>
+  <text class="text label" x="970" y="142" text-anchor="middle">Stage 2: Evidence-RAG</text>
+
+  <rect class="panel" x="840" y="178" width="260" height="82" rx="12"/>
+  <text class="text small" x="970" y="211" text-anchor="middle">Evidence-Aware</text>
+  <text class="text small" x="970" y="237" text-anchor="middle">Structured Review Template</text>
+
+  <rect class="panel" x="840" y="285" width="260" height="62" rx="12"/>
+  <text class="text small" x="970" y="322" text-anchor="middle">Key-Step Alignment Training</text>
+
+  <rect class="panel output" x="835" y="420" width="275" height="112" rx="14"/>
+  <text class="text label" x="972" y="458" text-anchor="middle">Review Output</text>
+  <text class="text small" x="972" y="490" text-anchor="middle">risk label + legal basis</text>
+  <text class="text small" x="972" y="516" text-anchor="middle">temporal consistency explanation</text>
+
+  <path class="arrow" d="M250 175 L340 222"/>
+  <path class="arrow" d="M250 445 L555 222"/>
+  <path class="arrow" d="M425 270 L486 325"/>
+  <path class="arrow" d="M640 270 L579 325"/>
+  <path class="arrow" d="M672 378 L805 219"/>
+  <path class="arrow" d="M970 260 L970 285"/>
+  <path class="arrow" d="M970 347 L970 420"/>
+  <path class="arrow dash" d="M145 235 C160 305, 260 310, 392 362"/>
+
+  <text class="text tiny" x="520" y="560" text-anchor="middle">Core idea: filter invalid legal evidence before generation, then constrain the lightweight model to use valid evidence explicitly.</text>
+</svg>
