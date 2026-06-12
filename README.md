@@ -7,7 +7,7 @@ A contract review RAG framework for legal temporal validity alignment and eviden
 
 ## Framework
 
-![Framework](docs/assets/contract_review_rag_framework.png)
+![Framework](docs/assets/framework.svg)
 
 ## Setup
 
