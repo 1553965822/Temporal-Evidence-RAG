@@ -11,11 +11,20 @@
 
 ## Setup
 
+Pip:
+
 ```bash
 conda create -n paper_rag python=3.10 -y
 conda activate paper_rag
 python -m pip install -r requirements.txt
-python -m pip install -r requirements-models.txt
+cp .env.example .env
+```
+
+Conda:
+
+```bash
+conda env create -f environment.yml
+conda activate paper_rag
 cp .env.example .env
 ```
 
