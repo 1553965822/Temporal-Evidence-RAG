@@ -1,9 +1,9 @@
 # Temporal-Evidence-RAG
 
-基于法律时效对齐与证据利用的合同审查 RAG 框架。
+A contract review RAG framework for legal temporal validity alignment and evidence-aware generation.
 
-- `Temporal-RAG`: 按合同时间锚点过滤法律依据，减少失效法条或版本错配进入上下文。
-- `Evidence-RAG`: 基于时间对齐证据生成结构化合同风险审查结果。
+- `Temporal-RAG`: filters legal evidence by contract time anchors to reduce expired or version-mismatched legal context.
+- `Evidence-RAG`: generates structured contract risk reviews from temporally aligned evidence.
 
 ## Framework
 
@@ -26,20 +26,6 @@ Conda:
 conda env create -f environment.yml
 conda activate paper_rag
 cp .env.example .env
-```
-
-## Data
-
-```bash
-python scripts/download_datasets.py \
-  --repo-id p1553965822/paper-aligned-contract-rag-datasets \
-  --local-dir data
-```
-
-No released dataset yet:
-
-```bash
-python scripts/build_datasets.py --force
 ```
 
 ## Models
